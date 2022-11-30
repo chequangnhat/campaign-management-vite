@@ -23,7 +23,7 @@ function redirectLogin() {
   <!-- <div>hello friend</div>
   
   <button @click="redirectLogin">click to redirect</button> -->
-  <SideBar />
+  <Layout />
   
 </template>
 

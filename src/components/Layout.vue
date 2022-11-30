@@ -1,4 +1,15 @@
-<script></script>
+<script setup>
+import {ref} from 'vue'
+
+const isSideBarShow = ref(false)
+
+
+function toggleSidebar(){
+  isSideBarShow.value = !isSideBarShow.value
+  console.log('clidck', isSideBarShow.value)
+}
+
+</script>
 
 <template>
   <div class="wrapper">
@@ -9,19 +20,25 @@
     </header>
     <nav>
       <div class="row">
-        <a><i class="fa-solid fa-list"></i>Toggle sidebar</a>
-        <h2>LOGO</h2>
+        <div class="toggle-sidebar" @click="toggleSidebar">
+          <font-awesome-icon icon="fa-solid fa-toggle-on" />
+          Toggle sidebar
+
+        </div>
+        <div>
+          <h2>LOGO</h2>
+        </div>
         <div class="circle"></div>
       </div>
     </nav>
     <div class="content__container">
-      <div class="sidebar">
+      <div class="sidebar" :class="{'smallSideBar': isSideBarShow}">
         <hr class="underlined" />
         <div class="circle--two"></div>
         <p>USER NAME</p>
         <ul>
           <hr class="underlined" />
-          <a><i class="fa-solid fa-table-cells-large"></i> Dashboard 
+          <a><i class="fa-solid fa-table-cells-large"></i> Dashboard
             <RouterLink to="/">dashboard</RouterLink>
           </a>
           <hr class="underlined" />
@@ -51,19 +68,20 @@
   padding: 0px;
 }
 
-.wrapper{
+.wrapper {
   width: 100vw;
 }
 
-.content__container{
+.content__container {
   width: 100%;
   display: flex;
 }
 
-.content__right{
-  width: 80%;
+.content__right {
+  width: auto;
   background-color: bisque;
 }
+
 .head h1 {
   height: 100px;
   background-color: white;
@@ -72,29 +90,11 @@
 }
 
 .row {
-  /* overflow: hidden;
-  display: block; */
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
-  grid-auto-columns: minmax(200px,1fr);
-  grid-gap: 16px;
-  height: 90px; 
-  background-color: #498fae; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 90px;
   background-color: #498fae;
-}
-
-.row a {
-  color: white;
-  text-decoration: none;
-}
-
-.row a i {
-  margin-top: 35px;
-  margin-left: 50px;
-  margin-right: 10px;
 }
 
 .row h2 {
@@ -106,13 +106,17 @@
   align-self: center;
 }
 
+.toggle-sidebar {
+  margin-left: 2em;
+}
+
 .circle {
   background: #c4c4c4;
   clip-path: circle(50%);
   height: 3em;
   width: 3em;
   align-items: flex-end;
-  margin-left: auto;
+  /* margin-left: auto; */
   margin-right: 2rem;
   align-self: center;
 }
@@ -123,19 +127,13 @@
   width: 20%;
   height: 100vh;
   background-color: #498fae;
+  transition: 0.3s linear;
 
 }
 
-@media screen and (width <= 600px) {
-  .sidebar,
-  a,
-  hr,
-  i {
-    width: 100%;
-  }
-}
 
-@media screen and (width <= 1000px) {
+
+@media screen and (width <=1000px) {
   .sidebar {
     display: none;
   }
@@ -146,10 +144,12 @@
     width: 200px;
   }
 
-  .content__right{
-  width: calc(100% - 200px);
-  background-color: bisque;
-}
+  .content__right {
+    /* width: calc(100% - 200px);
+     */
+     width: auto;
+    background-color: bisque;
+  }
 }
 
 
@@ -203,5 +203,8 @@
   padding-bottom: 30px;
   margin-left: 15px;
   color: white;
+}
+.smallSideBar{
+  width: 10%;
 }
 </style>
