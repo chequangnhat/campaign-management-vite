@@ -1,6 +1,4 @@
-<script>
-
-</script>
+<script></script>
 
 <template>
   <div class="wrapper">
@@ -16,25 +14,34 @@
         <div class="circle"></div>
       </div>
     </nav>
-    <div class="sidebar">
-      <hr class="underlined" />
-      <div class="circle--two"></div>
-      <p> USER NAME</p>
-      <ul>
+    <div class="content__container">
+      <div class="sidebar">
         <hr class="underlined" />
-        <a><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
-        <hr class="underlined" />
-        <a><i class="fa-solid fa-table-cells-large"></i> Campaign</a>
-        <hr class="underlined" />
-        <a><i class="fa-solid fa-table-cells-large"></i> Account</a>
-        <hr class="underlined" />
-      </ul>
+        <div class="circle--two"></div>
+        <p>USER NAME</p>
+        <ul>
+          <hr class="underlined" />
+          <a><i class="fa-solid fa-table-cells-large"></i> Dashboard 
+            <RouterLink to="/">dashboard</RouterLink>
+          </a>
+          <hr class="underlined" />
+          <a><i class="fa-solid fa-table-cells-large"></i> Campaign
+            <RouterLink to="/Campaign">Campaigns</RouterLink>
+          </a>
+          <hr class="underlined" />
+          <a><i class="fa-solid fa-table-cells-large"></i> Account
+            <RouterLink to="/Account">account</RouterLink>
+          </a>
+          <hr class="underlined" />
+        </ul>
+      </div>
+      <div class="content__right">
+        <RouterView />
+      </div>
     </div>
-    <div>
-      <div>You are logged in</div>
-      <button v-on:click="$emit('logOut')">logout</button>
-      <button v-on:click="$emit('testRefreshToken')">test refresh token</button>
-    </div>
+    <div>You are logged in</div>
+    <button v-on:click="$emit('logOut')">logout</button>
+    <button v-on:click="$emit('testRefreshToken')">test refresh token</button>
   </div>
 </template>
 
@@ -44,6 +51,19 @@
   padding: 0px;
 }
 
+.wrapper{
+  width: 100vw;
+}
+
+.content__container{
+  width: 100%;
+  display: flex;
+}
+
+.content__right{
+  width: 80%;
+  background-color: bisque;
+}
 .head h1 {
   height: 100px;
   background-color: white;
@@ -97,17 +117,16 @@
   align-self: center;
 }
 
-
 .sidebar {
   /* position: fixed; */
-  left: 0;
-  width: 250px;
-  height: 100%;
+  /* left: 0; */
+  width: 20%;
+  height: 100vh;
   background-color: #498fae;
+
 }
 
-@media screen and (max-width: 600px) {
-
+@media screen and (width <= 600px) {
   .sidebar,
   a,
   hr,
@@ -116,12 +135,24 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (width <= 1000px) {
   .sidebar {
-    width: 100px;
     display: none;
   }
 }
+
+@media screen and (width > 1000px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content__right{
+  width: calc(100% - 200px);
+  background-color: bisque;
+}
+}
+
+
 
 .sidebar a {
   color: white;
@@ -150,7 +181,6 @@
   align: center;
   color: white;
   size: 10px;
-
 }
 
 .sider ul a {
@@ -162,9 +192,9 @@
   color: white;
   padding-left: 4px;
   box-sizing: border-box;
-  border-top: 1px solid rgb(255, 255, 255, .1);
+  border-top: 1px solid rgb(255, 255, 255, 0.1);
   border-bottom: 1px white;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .sidebar ul a i {

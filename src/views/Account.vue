@@ -1,16 +1,5 @@
 <template>
-  <div>hello guy, i am campaign page</div>
-  <div class="campaign-container">
-    <div class="campaign-top-content">
-    
-    </div>
-    <div class="campaign-data-table">
-    
-    </div>
-    <div class="campaign-pagnigation">
-    
-    </div>
-  </div>
+  <div>hello guy, i am account page</div>
 </template>
 <script>
 export default {

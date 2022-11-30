@@ -3,7 +3,7 @@
 import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
-import Layout from './Layout.vue'
+import Layout from '../components/Layout.vue'
 
 export default {
   data() {
