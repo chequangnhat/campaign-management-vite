@@ -1,14 +1,14 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from "vue";
+import SideBar from './SideBar.vue'
 
-const isSideBarShow = ref(false)
 
+const isSideBarShow = ref(false);
 
-function toggleSidebar(){
-  isSideBarShow.value = !isSideBarShow.value
-  console.log('clidck', isSideBarShow.value)
+function toggleSidebar() {
+  isSideBarShow.value = !isSideBarShow.value;
+  console.log("clidck", isSideBarShow.value);
 }
-
 </script>
 
 <template>
@@ -21,37 +21,17 @@ function toggleSidebar(){
     <nav>
       <div class="row">
         <div class="toggle-sidebar" @click="toggleSidebar">
-          <font-awesome-icon icon="fa-solid fa-toggle-on" />
+          <font-awesome-icon icon="fa-solid fa-bars" />
           Toggle sidebar
-
         </div>
-        <div>
+        <div class="logo-title">
           <h2>LOGO</h2>
         </div>
         <div class="circle"></div>
       </div>
     </nav>
     <div class="content__container">
-      <div class="sidebar" :class="{'smallSideBar': isSideBarShow}">
-        <hr class="underlined" />
-        <div class="circle--two"></div>
-        <p>USER NAME</p>
-        <ul>
-          <hr class="underlined" />
-          <a><i class="fa-solid fa-table-cells-large"></i> Dashboard
-            <RouterLink to="/">dashboard</RouterLink>
-          </a>
-          <hr class="underlined" />
-          <a><i class="fa-solid fa-table-cells-large"></i> Campaign
-            <RouterLink to="/Campaign">Campaigns</RouterLink>
-          </a>
-          <hr class="underlined" />
-          <a><i class="fa-solid fa-table-cells-large"></i> Account
-            <RouterLink to="/Account">account</RouterLink>
-          </a>
-          <hr class="underlined" />
-        </ul>
-      </div>
+      <SideBar />
       <div class="content__right">
         <RouterView />
       </div>
@@ -78,8 +58,10 @@ function toggleSidebar(){
 }
 
 .content__right {
-  width: auto;
-  background-color: bisque;
+  width: 80%;
+  background-color: white;
+
+  overflow-x: auto;
 }
 
 .head h1 {
@@ -97,17 +79,13 @@ function toggleSidebar(){
   background-color: #498fae;
 }
 
-.row h2 {
-  text-align: center;
-  color: white;
-  align-items: flex-end;
-  margin-left: auto;
-  margin-right: 2rem;
-  align-self: center;
-}
-
 .toggle-sidebar {
   margin-left: 2em;
+  color: white;
+}
+
+.logo-title {
+  color: white;
 }
 
 .circle {
@@ -124,87 +102,92 @@ function toggleSidebar(){
 .sidebar {
   /* position: fixed; */
   /* left: 0; */
-  width: 20%;
+  width: px;
   height: 100vh;
   background-color: #498fae;
   transition: 0.3s linear;
+  color: white;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-
-@media screen and (width <=1000px) {
-  .sidebar {
-    display: none;
-  }
+.circle--two-container {
+  width: 100%;
+  border-top: white solid 2px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
 }
-
-@media screen and (width > 1000px) {
-  .sidebar {
-    width: 200px;
-  }
-
-  .content__right {
-    /* width: calc(100% - 200px);
-     */
-     width: auto;
-    background-color: bisque;
-  }
+.username {
+  font-size: 25px;
+  margin: 15px 0;
 }
-
-
-
 .sidebar a {
   color: white;
+  text-decoration: none;
 }
 
+.router-child {
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+
+  border-top: white solid 2px;
+  margin: 5px 0;
+  padding: 10px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.router-link-container{
+  width: 70%;
+}
 .circle--two {
   background: #c4c4c4;
   clip-path: circle(50%);
   height: 5em;
   width: 5em;
-  margin-top: 20px;
-  margin-left: 50px;
 }
 
-.sidebar p {
-  font-size: 15px;
-  color: white;
-  line-height: 70px;
-  user-select: none;
-  margin-left: 40px;
-  margin-top: -15px;
+@media screen and (width <=1000px) {
+  .sidebar {
+    width: 90px;
+  }
+
+  .content__right{
+    width: calc(100% - 80px);
+
+  }
+
+  .sidebar a, p{
+    display: none;
+  }
+
+  .router-link-container{
+  width: 40%;
+}
 }
 
-.underlined {
-  width: 99%;
-  align: center;
-  color: white;
-  size: 10px;
+@media screen and (width > 1000px) {
+  .sidebar {
+    width: 20%;
+  }
+
+  .content__right{
+    width: 80%;
+  }
 }
 
-.sider ul a {
-  display: block;
-  height: 100%;
-  width: 100%;
-  line-height: 65px;
-  font-size: 20px;
-  color: white;
-  padding-left: 4px;
-  box-sizing: border-box;
-  border-top: 1px solid rgb(255, 255, 255, 0.1);
-  border-bottom: 1px white;
-  transition: 0.4s;
+.smallSideBar {
+  width: 90px;
 }
 
-.sidebar ul a i {
-  margin-right: 16px;
-  padding-top: 25px;
-  padding-bottom: 30px;
-  margin-left: 15px;
-  color: white;
-}
-.smallSideBar{
-  width: 10%;
+.smallSideBar p,
+.smallSideBar a {
+  display: none;
 }
 </style>

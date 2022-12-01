@@ -3,7 +3,6 @@
 import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
-import Layout from '../components/Layout.vue'
 
 export default {
   data() {
@@ -40,6 +39,8 @@ export default {
       if (localStorage.access_token) {
         this.at = localStorage.access_token;
         this.rt = localStorage.refresh_token;
+
+        this.redirectLayout()
       }
 
       this.username = "";
@@ -106,10 +107,9 @@ export default {
       //   this.at = localStorage.access_token;
       // }
       }
-
-
-
-
+    },
+    redirectLayout(){
+      this.$router.push({name: 'Layout'})
     }
   },
   mounted() {
@@ -123,13 +123,12 @@ export default {
     }
   },
   components: {
-    Layout
   }
 };
 </script>
 
 <template>
-<div v-if="at != ''">
+<!-- <div v-if="at != ''">
     <Layout @logOut="logOut" @testRefreshToken="testRefreshToken" />
   </div>
   <div v-else>
@@ -152,7 +151,27 @@ export default {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <div class="wrapper">
+      <div class="login__page">
+        <h1>WELCOME</h1>
+        <form>
+          <div class="user__box">
+            <input v-model="username" type="text" placeholder="Email" id="username" />
+            <div v-if="validation == false" class="validate">Invalid email!</div>
+            <input v-model="password" type="password" placeholder="Password" id="password" />
+          </div>
+        </form>
+        <button type="submit" @click="onSubmit1" class="btn__login">
+          Login
+        </button>
+        <div class="other">
+          <button class="other--btn__face">Facebook</button>
+          <button class="other--btn__google">Google</button>
+        </div>
+      </div>
+    </div>
 </template>
 
 <style scoped>
