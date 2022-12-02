@@ -1,10 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import SideBar from './SideBar.vue'
 
-
 const isSideBarShow = ref(false);
-
+let data = reactive({
+  isShow: false
+})
+function toggleIsShow() {
+  data.isShow = !data.isShow;
+  console.log("ishow", data.isShow);
+}
 function toggleSidebar() {
   isSideBarShow.value = !isSideBarShow.value;
   console.log("clidck", isSideBarShow.value);
@@ -20,7 +25,7 @@ function toggleSidebar() {
     </header>
     <nav>
       <div class="row">
-        <div class="toggle-sidebar" @click="toggleSidebar">
+        <div class="toggle-sidebar" @click="toggleIsShow">
           <font-awesome-icon icon="fa-solid fa-bars" />
           Toggle sidebar
         </div>
@@ -31,9 +36,9 @@ function toggleSidebar() {
       </div>
     </nav>
     <div class="content__container">
-      <SideBar />
+      <SideBar v-bind:isShow="data.isShow"/>
       <div class="content__right">
-        <RouterView />
+        <RouterView name="routerViewLayout"/>
       </div>
     </div>
     <div>You are logged in</div>

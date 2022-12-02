@@ -1,3 +1,5 @@
+<!--
+
 <script>
 
 import axios from "axios";
@@ -40,7 +42,7 @@ export default {
         this.at = localStorage.access_token;
         this.rt = localStorage.refresh_token;
 
-        this.redirectLayout()
+        // this.redirectLayout()
       }
 
       this.username = "";
@@ -126,9 +128,119 @@ export default {
   }
 };
 </script>
+-->
 
+<!--
+-->
+
+<script setup>
+import { reactive } from "vue";
+import router from "../router";
+import axios from "axios";
+const data = reactive({
+  username: "",
+  password: "",
+  at: "",
+  rt: "",
+  validation: null,
+});
+
+// const onSubmit1 = () =>{
+//   router.push({name: 'Layout',})
+// }
+
+const onSubmit = async () => {
+  // POST request using axios with async/await
+  const information = {
+    username: data.username,
+    password: data.password,
+  };
+  const response = await axios.post(
+    "https://python-flask-login-backend.herokuapp.com/auth/login",
+    information
+  );
+  console.log(response);
+  console.log(response.data.access_token);
+  localStorage.setItem("access_token", response.data.access_token);
+  localStorage.setItem("refresh_token", response.data.refresh_token);
+  if (localStorage.access_token) {
+    data.at = localStorage.access_token;
+    data.rt = localStorage.refresh_token;
+    router.push({name: 'Layout',})
+    // this.redirectLayout()
+  }
+
+  data.username = "";
+  data.password = "";
+};
+
+const onSubmit1 = async () => {
+  const result = await this.v$.$validate();
+  if (result) {
+    // alert("success");
+    this.validation = true;
+    this.onSubmit();
+  } else {
+    // alert("error");
+    this.validation = false;
+  }
+};
+const logOut = () => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  data.at = "";
+  data.rt = "";
+};
+
+const testRefreshToken = async () => {
+  console.log("test refresh", data.at);
+  const opts = {
+    headers: {
+      Authorization: "Bearer " + `${data.at}`,
+    },
+  };
+  try {
+    const response = await axios.get(
+      "https://python-flask-login-backend.herokuapp.com/auth/protected",
+      opts
+    );
+    if (response.status == 200) {
+      console.log(response.data.logged_in_as);
+    } else {
+      console.log(response.response.data.msg);
+    }
+    console.log(response);
+  } catch (e) {
+    console.log(e.response.data.msg);
+    const information = {
+      username: data.username,
+      password: data.password,
+    };
+
+    const opts = {
+      headers: {
+        Authorization: "Bearer " + `${datadata.rt}`,
+      },
+    };
+    const response1 = await axios.get(
+      "https://python-flask-login-backend.herokuapp.com/auth/refresh_token",
+      opts
+    );
+    console.log("response1", response1);
+    if (response1.data.access_token) {
+      localStorage.removeItem("access_token");
+      localStorage.setItem("access_token", response1.data.access_token);
+    }
+    data.at = localStorage.access_token;
+    //   localStorage.setItem("access_token", response1.data.access_token);
+    // if (localStorage.access_token) {
+    //   this.at = localStorage.access_token;
+    // }
+  }
+};
+</script>
 <template>
-<!-- <div v-if="at != ''">
+  <!-- <div v-if="at != ''">
     <Layout @logOut="logOut" @testRefreshToken="testRefreshToken" />
   </div>
   <div v-else>
@@ -154,24 +266,32 @@ export default {
   </div> -->
 
   <div class="wrapper">
-      <div class="login__page">
-        <h1>WELCOME</h1>
-        <form>
-          <div class="user__box">
-            <input v-model="username" type="text" placeholder="Email" id="username" />
-            <div v-if="validation == false" class="validate">Invalid email!</div>
-            <input v-model="password" type="password" placeholder="Password" id="password" />
-          </div>
-        </form>
-        <button type="submit" @click="onSubmit1" class="btn__login">
-          Login
-        </button>
-        <div class="other">
-          <button class="other--btn__face">Facebook</button>
-          <button class="other--btn__google">Google</button>
+    <div class="login__page">
+      <h1>WELCOME</h1>
+      <form>
+        <div class="user__box">
+          <input
+            v-model="data.username"
+            type="text"
+            placeholder="Email"
+            id="username"
+          />
+          <div v-if="validation == false" class="validate">Invalid email!</div>
+          <input
+            v-model="data.password"
+            type="password"
+            placeholder="Password"
+            id="password"
+          />
         </div>
+      </form>
+      <button type="submit" @click="onSubmit" class="btn__login">Login</button>
+      <div class="other">
+        <button class="other--btn__face">Facebook</button>
+        <button class="other--btn__google">Google</button>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>

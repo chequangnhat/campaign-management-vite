@@ -18,9 +18,10 @@ function redirectLogin() {
 <template>
   <!-- <Login /> -->
   <!-- <Campaign /> -->
-  <Home/>
+  <!-- <Home /> -->
   <!-- <Layout /> -->
   <!-- <Login /> -->
+  <RouterView />
 </template>
 
 <style scoped>
