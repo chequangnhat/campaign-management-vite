@@ -3,8 +3,13 @@
   <div class="campaign-container">
     <div class="campaign-top-content">
       <div class="campaign-date-picker-container">
+        <div class="time-label"><label for=""></label></div>
         <div>
-          <DatePicker />
+        <input class="date-picker" type="datetime-local" name="start-date-picker">
+        </div>
+        <div class="time-label"></div>
+        <div>
+        <input class="date-picker" type="datetime-local" name="start-date-picker">
         </div>
       </div>
     </div>
@@ -18,6 +23,7 @@
           <th>Budget</th>
           <th>Start date</th>
           <th>End date</th>
+          <th>Action</th>
         </tr>
         <tr v-for="(c, index) in campaign" :key="index" @click="printInfo(c)">
           <td>{{c.name}}</td>
@@ -27,6 +33,12 @@
           <td>{{c.budget}}</td>
           <td>{{c.start_time.toLocaleDateString("en-US")}}</td>
           <td>{{c.end_time.toLocaleDateString("en-US")}}</td>
+          <td>
+            <div class="action-btn-container">
+              <div><button>update</button></div>
+              <div><button>delete</button></div>
+            </div>
+          </td>
         </tr>
       </table>
     </div>
@@ -95,9 +107,12 @@ const printInfo = (inf) => {
 <style scoped>
 
 .table-campaign {
+  box-sizing: border-box;
   border:1px solid black;
   border-collapse: collapse;
-  width: 90%;
+  
+  width: 100%;
+  margin: 0 10px;
   
 }
 
@@ -115,13 +130,24 @@ const printInfo = (inf) => {
 }
 
 .campaign-data-table{
-margin-left: 20px;
+margin: 10px 30px 10px 15px;
 
 }
 
 .campaign-date-picker-container{
   width: 250px;
-  margin: 15px 0 15px 15px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.date-picker{
+  margin: 10px 20px;
+}
+
+.action-btn-container{
+  display: flex;
+  
 }
 
 

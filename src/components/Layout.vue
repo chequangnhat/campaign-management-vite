@@ -41,9 +41,7 @@ function toggleSidebar() {
         <RouterView name="routerViewLayout"/>
       </div>
     </div>
-    <div>You are logged in</div>
-    <button v-on:click="$emit('logOut')">logout</button>
-    <button v-on:click="$emit('testRefreshToken')">test refresh token</button>
+  
   </div>
 </template>
 
@@ -60,6 +58,7 @@ function toggleSidebar() {
 .content__container {
   width: 100%;
   display: flex;
+  height: 900px;
 }
 
 .content__right {
@@ -104,19 +103,7 @@ function toggleSidebar() {
   align-self: center;
 }
 
-.sidebar {
-  /* position: fixed; */
-  /* left: 0; */
-  width: px;
-  height: 100vh;
-  background-color: #498fae;
-  transition: 0.3s linear;
-  color: white;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .circle--two-container {
   width: 100%;
@@ -129,10 +116,7 @@ function toggleSidebar() {
   font-size: 25px;
   margin: 15px 0;
 }
-.sidebar a {
-  color: white;
-  text-decoration: none;
-}
+
 
 .router-child {
   width: 100%;

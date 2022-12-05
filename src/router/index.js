@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: Home,
+      component: () => import("../views/Login.vue"),
       children: [
         {
           path: '/Login',
@@ -38,6 +38,20 @@ const router = createRouter({
           components: {
             default: Default,
             routerViewLayout: Campaign,
+          },
+        },
+        {
+          path: "/Dashboard",
+          name: "Dashboard",
+          components: {
+            routerViewLayout: Dashboard,
+          },
+        },
+        {
+          path: "/Account",
+          name: "Account",
+          components: {
+            routerViewLayout: Account,
           },
         },
       ],

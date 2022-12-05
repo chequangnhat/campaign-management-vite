@@ -111,8 +111,7 @@ console.log("isSmall", isSmall.isShow)
 .sidebar {
   /* position: fixed; */
   /* left: 0; */
-  width: px;
-  height: 100vh;
+  height: calc(100vh-190px);
   background-color: #498fae;
   transition: 0.3s linear;
   color: white;

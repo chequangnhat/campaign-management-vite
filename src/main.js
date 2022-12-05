@@ -10,10 +10,9 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'
-//import vue datepicker
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
 
+import 'bootstrap/dist/css/bootstrap.css'
+import bootstrap from 'bootstrap/dist/js/bootstrap.js'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -31,6 +30,6 @@ library.add(faUserSecret, faList, faToggleOn,faBars, faTableColumns, faCaravan, 
 const app = createApp(App)
 
 app.use(router)
+app.use(bootstrap)
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.component('Datepicker', Datepicker);
 app.mount('#app')
